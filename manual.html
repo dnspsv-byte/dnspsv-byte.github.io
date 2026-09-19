@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual do Usuário — MTerminal</title>
+    <meta name="description" content="Manual do Usuário do MTerminal: instalar, configurar a conexão com o sistema da sua loja, usar o teclado e o leitor de código de barras, teste grátis, licença e solução de problemas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar has-toggle">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+                <span class="logo-icon">>_</span>
+                <span class="logo-text">MTerminal</span>
+            </a>
+            <nav class="nav-links" id="menu-principal">
+                <a href="index.html">Início</a>
+                <a href="manual.html">Manual do Usuário</a>
+                <a href="integracao.html">Integradores</a>
+                <a href="termos.html">Termos</a>
+                <a href="privacidade.html">Privacidade</a>
+            </nav>
+            <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+                <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="doc-page">
+        <div class="doc-hero">
+            <span class="section-tag">MANUAL DO USUÁRIO</span>
+            <h1>Como usar o <span class="gradient-text">MTerminal</span></h1>
+            <p>Guia para o dono do estabelecimento e para quem atende: da instalação ao dia a dia no salão, em linguagem simples e com as telas do aplicativo.</p>
+        </div>
+
+        <nav class="doc-toc glass-card" aria-label="Sumário">
+            <a href="#antes">1. Antes de começar</a>
+            <a href="#instalar">2. Instalar o aplicativo</a>
+            <a href="#primeira">3. Primeira abertura e teste grátis</a>
+            <a href="#conexao">4. Conectar ao sistema da loja</a>
+            <a href="#tela">5. Conhecendo a tela</a>
+            <a href="#teclado">6. Usando o teclado</a>
+            <a href="#leitor">7. Leitor de código de barras</a>
+            <a href="#personalizar">8. Personalizar visor, teclas e cores</a>
+            <a href="#licenca">9. Licença e pagamento</a>
+            <a href="#problemas">10. Problemas comuns</a>
+            <a href="#suporte">11. Suporte</a>
+        </nav>
+
+        <h2 id="antes"><span class="num">1.</span>Antes de começar</h2>
+        <p>O MTerminal transforma um celular ou tablet Android no <strong>microterminal de pedidos</strong> do seu estabelecimento. Ele não tem cardápio nem pedidos próprios: mostra e envia informações para o <strong>sistema de automação comercial</strong> que você já usa (o programa do caixa/PDV). Por isso, você vai precisar de:</p>
+        <ul>
+            <li>um celular ou tablet com <strong>Android 7.0 ou mais recente</strong>;</li>
+            <li>um <strong>sistema de automação</strong> que trabalhe com microterminais pela rede (protocolo VT100). Se tiver dúvida, pergunte ao fornecedor do seu sistema;</li>
+            <li>o aparelho conectado ao <strong>mesmo Wi-Fi</strong> do computador onde o sistema roda;</li>
+            <li>o <strong>endereço IP</strong> e a <strong>porta</strong> do servidor de microterminais, que o fornecedor do sistema informa.</li>
+        </ul>
+        <div class="callout callout-tip">
+            <span class="callout-title">Dica</span>
+            <p>Use os 7 dias grátis para testar com o seu sistema antes de comprar. Se o seu fornecedor precisar de detalhes técnicos, envie para ele a página <a href="integracao.html">Documentação para Integradores</a>.</p>
+        </div>
+
+        <h2 id="instalar"><span class="num">2.</span>Instalar o aplicativo</h2>
+        <ol class="doc-steps">
+            <li>Abra a <strong>Google Play</strong> no aparelho e procure por <strong>MTerminal</strong>.</li>
+            <li>Toque em <strong>Instalar</strong>. O download e o teste grátis não têm custo.</li>
+            <li>Toque em <strong>Abrir</strong>. Você pode instalar em quantos aparelhos quiser; cada um funciona como um terminal.</li>
+        </ol>
+
+        <h2 id="primeira"><span class="num">3.</span>Primeira abertura e teste grátis</h2>
+        <div class="doc-figure-row">
+            <figure class="doc-figure">
+                <img src="imagens/manual/manual_boas_vindas.jpg" alt="Tela de boas-vindas do MTerminal com as regras de preço" loading="lazy">
+                <figcaption>Tela de boas-vindas</figcaption>
+            </figure>
+            <div>
+                <p>Na primeira vez que você abre o app, aparece a tela de boas-vindas explicando como funciona a licença:</p>
+                <ul>
+                    <li><strong>7 dias grátis</strong> com todas as funções, a partir de hoje;</li>
+                    <li>comprando <strong>durante o teste</strong>, a licença vitalícia custa <strong>R$ 49,00</strong>;</li>
+                    <li><strong>depois dos 7 dias</strong>, a licença custa <strong>R$ 99,00</strong> e o app fica bloqueado até a compra.</li>
+                </ul>
+                <ol class="doc-steps">
+                    <li>Leia os <a href="termos.html">Termos de Uso</a> e a <a href="privacidade.html">Política de Privacidade</a> (toque nos links).</li>
+                    <li>Marque <strong>“Li e aceito os Termos de Uso e a Política de Privacidade”</strong>.</li>
+                    <li>Toque em <strong>“Começar teste grátis de 7 dias”</strong>. Nenhuma cobrança é feita nesse momento.</li>
+                </ol>
+            </div>
+        </div>
+
+        <h2 id="conexao"><span class="num">4.</span>Conectar ao sistema da loja</h2>
+        <div class="doc-figure-row">
+            <figure class="doc-figure">
+                <img src="imagens/manual/manual_config_conexao.jpg" alt="Configurações de conexão: IP do servidor, porta e identificador" loading="lazy">
+                <figcaption>Configurações → Conexão TCP</figcaption>
+            </figure>
+            <div>
+                <p>Toque na <strong>engrenagem</strong> (⚙) no canto superior direito para abrir as Configurações e preencha:</p>
+                <ol class="doc-steps">
+                    <li><strong>IP do Servidor:</strong> o endereço do computador onde roda o sistema (ex.: <code>192.168.0.100</code>).</li>
+                    <li><strong>Porta TCP:</strong> a porta do servidor de microterminais (muitos sistemas usam <code>1001</code> ou <code>23</code>).</li>
+                    <li><strong>Identificador do Terminal:</strong> um nome ou número para você reconhecer o aparelho (ex.: <code>01</code>, <code>SALÃO 2</code>).</li>
+                    <li>Toque em <strong>“Salvar e Reconectar TCP”</strong>, no fim da tela.</li>
+                </ol>
+                <div class="callout callout-warn">
+                    <span class="callout-title">Importante: cadastre o aparelho no seu sistema</span>
+                    <p>A maioria dos sistemas reconhece cada terminal pelo <strong>IP do aparelho</strong>, mostrado logo abaixo, em “IP deste aparelho”. Passe esse número para o fornecedor do sistema cadastrar. Para ele não mudar, peça para fixar o IP no roteador (reserva de DHCP).</p>
+                </div>
+                <p>Deixe <strong>“Enviar identificador ao conectar”</strong> desligado, a não ser que o fornecedor do sistema peça para ligar.</p>
+            </div>
+        </div>
+
+        <h2 id="tela"><span class="num">5.</span>Conhecendo a tela</h2>
+        <div class="doc-figure-row">
+            <figure class="doc-figure">
+                <img src="imagens/manual/manual_terminal.jpg" alt="Tela principal do MTerminal conectada, com visor e teclado" loading="lazy">
+                <figcaption>Tela principal conectada ao sistema</figcaption>
+            </figure>
+            <div>
+                <ol class="doc-steps">
+                    <li><strong>Cabeçalho:</strong> nome do terminal e o endereço do servidor. À direita, o atalho do <strong>leitor de código de barras</strong> e a <strong>engrenagem</strong> das Configurações.</li>
+                    <li><strong>Faixa do teste grátis:</strong> mostra quantos dias faltam e os preços (R$ 49,00 agora, R$ 99,00 depois). Toque em <strong>COMPRAR</strong> para abrir a compra. No último dia ela fica vermelha. Some depois da compra.</li>
+                    <li><strong>Situação da conexão:</strong>
+                        <ul>
+                            <li><strong style="color:#10B981">● CONECTADO</strong>: pronto para usar;</li>
+                            <li><strong style="color:#F59E0B">● CONECTANDO...</strong>: tentando falar com o sistema;</li>
+                            <li><strong style="color:#EF4444">● ERRO CONEXÃO / DESCONECTADO</strong>: sem conexão; o motivo aparece logo abaixo. Toque na faixa para tentar de novo.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Visor:</strong> mostra exatamente o que o sistema envia (mesa, produto, quantidade, mensagens). O bloco piscando indica onde vai aparecer o que você digitar.</li>
+                    <li><strong>Teclado:</strong> números e teclas de ação, como num microterminal.</li>
+                    <li><strong>Código de Barras:</strong> abre a câmera para ler produtos e comandas.</li>
+                </ol>
+                <div class="callout callout-info">
+                    <span class="callout-title">Reconexão automática</span>
+                    <p>Se a rede cair ou o sistema for reiniciado, o MTerminal tenta reconectar sozinho. Ao voltar para o app depois de usar outro aplicativo, ele reconecta na hora.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="teclado"><span class="num">6.</span>Usando o teclado</h2>
+        <p>O que cada tecla faz depende do seu sistema de automação, mas o padrão dos microterminais é este:</p>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>Tecla</th><th>Para que serve</th></tr>
+                <tr><td><strong>0 a 9</strong></td><td>Digitar mesa, comanda, código do produto, quantidade ou senha do operador.</td></tr>
+                <tr><td><strong>.</strong> e <strong>,</strong></td><td>Separadores (ex.: quantidade fracionada ou peso), quando o sistema usar.</td></tr>
+                <tr><td><strong>Enter</strong></td><td>Confirmar o que foi digitado (lançar o item, abrir a mesa, avançar).</td></tr>
+                <tr><td><strong>Bck</strong></td><td>Apagar o último número digitado.</td></tr>
+                <tr><td><strong>Del</strong></td><td>Cancelar ou voltar (limpar a digitação, cancelar o item ou fechar a comanda, conforme o sistema).</td></tr>
+                <tr><td><strong>Código de Barras</strong></td><td>Ler um código pela câmera; o código é enviado ao sistema já com o Enter.</td></tr>
+            </table>
+        </div>
+        <p>Cada toque dá uma leve vibração e, se ativado, um bip. As teclas só são enviadas quando o terminal está <strong>CONECTADO</strong>.</p>
+
+        <h2 id="leitor"><span class="num">7.</span>Leitor de código de barras</h2>
+        <div class="doc-figure-row">
+            <figure class="doc-figure">
+                <img src="imagens/tela_leitor_barcode.jpg" alt="Leitor de código de barras pela câmera" loading="lazy">
+                <figcaption>Leitura de um código de barras</figcaption>
+            </figure>
+            <div>
+                <ol class="doc-steps">
+                    <li>Toque em <strong>Código de Barras</strong> (ou no ícone de leitor no topo).</li>
+                    <li>Na primeira vez, o Android pede permissão para usar a câmera: toque em <strong>Permitir</strong>.</li>
+                    <li>Aponte a câmera para o código, deixando-o dentro do <strong>quadro verde</strong>. A leitura é automática: o leitor fecha sozinho e o código vai para o sistema.</li>
+                </ol>
+                <p>Botões do leitor: <strong>⚡ lanterna</strong> para ambientes escuros, <strong>trocar câmera</strong> (frontal/traseira) e <strong>✕</strong> para fechar sem ler.</p>
+                <p>Lê os formatos mais comuns: código de barras de produtos (EAN-13, EAN-8, UPC), Code 128, Code 39 e QR Code, entre outros.</p>
+                <div class="callout callout-tip">
+                    <span class="callout-title">Privacidade</span>
+                    <p>As imagens da câmera são analisadas no próprio aparelho e não são gravadas nem enviadas a ninguém; só o número do código vai para o seu sistema.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="personalizar"><span class="num">8.</span>Personalizar visor, teclas e cores</h2>
+        <div class="doc-figure-row">
+            <figure class="doc-figure">
+                <img src="imagens/manual/manual_config_visor_teclas.jpg" alt="Configurações de formato do visor, códigos das teclas, tema e preferências" loading="lazy">
+                <figcaption>Configurações → visor, teclas, tema e preferências</figcaption>
+            </figure>
+            <div>
+                <ul>
+                    <li><strong>Protocolo:</strong> deixe em <strong>VT100 / ANSI</strong>. Só mude para “STX/ETX com comandos” se o fornecedor do sistema pedir.</li>
+                    <li><strong>Backspace do servidor apaga o caractere:</strong> deixe ligado (é o padrão dos microterminais).</li>
+                    <li><strong>Formato do visor:</strong> quantas linhas e colunas o visor tem (2×16, <strong>2×20</strong>, 2×40 ou 4×20). Use o mesmo configurado no sistema; o mais comum é 2×20.</li>
+                    <li><strong>Códigos das teclas:</strong> o que as teclas Enter, Del e Bck enviam. O padrão (Enter = CR, Del = ESC, Bck = BS) serve para a maioria dos sistemas; <strong>só altere se o fornecedor orientar</strong>.</li>
+                    <li><strong>Tema visual do LCD:</strong> a cor do visor e do teclado (veja abaixo).</li>
+                    <li><strong>Bip sonoro ao teclar</strong> e <strong>Manter tela ligada</strong>: deixe a tela ligada para o aparelho não apagar durante o atendimento.</li>
+                </ul>
+                <p>Depois de alterar, toque em <strong>“Salvar e Reconectar TCP”</strong>.</p>
+            </div>
+        </div>
+        <h3>Temas de cor</h3>
+        <div class="doc-gallery">
+            <figure class="doc-figure">
+                <img src="imagens/tela_tema_verde.jpg" alt="Tema Classic Green" loading="lazy">
+                <figcaption><strong>Classic Green</strong>: máximo contraste em ambientes claros.</figcaption>
+            </figure>
+            <figure class="doc-figure">
+                <img src="imagens/tela_tema_ambar.jpg" alt="Tema Amber Gold" loading="lazy">
+                <figcaption><strong>Amber Gold</strong>: confortável em ambientes com pouca luz.</figcaption>
+            </figure>
+            <figure class="doc-figure">
+                <img src="imagens/tela_tema_azul.jpg" alt="Tema Cyber Blue" loading="lazy">
+                <figcaption><strong>Cyber Blue</strong>: visual moderno.</figcaption>
+            </figure>
+        </div>
+
+        <h2 id="licenca"><span class="num">9.</span>Licença e pagamento</h2>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>Situação</th><th>O que acontece</th></tr>
+                <tr><td><strong>Teste grátis (7 dias)</strong></td><td>Todas as funções liberadas. A faixa no topo mostra os dias restantes.</td></tr>
+                <tr><td><strong>Comprando durante o teste</strong></td><td>Licença vitalícia por <strong>R$ 49,00</strong>, pagamento único.</td></tr>
+                <tr><td><strong>Depois dos 7 dias sem compra</strong></td><td>O app fica bloqueado. A licença vitalícia passa a custar <strong>R$ 99,00</strong>, pagamento único.</td></tr>
+                <tr><td><strong>Depois da compra</strong></td><td>Liberado para sempre, sem mensalidades. Atualizações gratuitas pela Google Play.</td></tr>
+            </table>
+        </div>
+        <div class="doc-gallery">
+            <figure class="doc-figure">
+                <img src="imagens/manual/manual_compra_teste.jpg" alt="Tela de compra durante o teste grátis" loading="lazy">
+                <figcaption>Compra durante o teste: R$ 49,00</figcaption>
+            </figure>
+            <figure class="doc-figure">
+                <img src="imagens/manual/manual_teste_encerrado.jpg" alt="Tela de teste encerrado" loading="lazy">
+                <figcaption>Teste encerrado: R$ 99,00</figcaption>
+            </figure>
+            <figure class="doc-figure">
+                <img src="imagens/manual/manual_licenca_ativa.jpg" alt="Licença ativa" loading="lazy">
+                <figcaption>Licença ativa</figcaption>
+            </figure>
+        </div>
+        <h3>Como comprar</h3>
+        <ol class="doc-steps">
+            <li>Toque em <strong>COMPRAR</strong> na faixa do teste grátis, ou abra <strong>Configurações → Licença</strong>.</li>
+            <li>Toque em <strong>“Comprar licença vitalícia”</strong>. O botão mostra o preço que vale no momento.</li>
+            <li>Confirme o pagamento na janela da <strong>Google Play</strong> (cartão, Pix, saldo ou outro meio cadastrado na sua conta Google).</li>
+            <li>Pronto: aparece <strong>“Licença ativa”</strong> e a faixa do teste some.</li>
+        </ol>
+        <div class="callout callout-info">
+            <span class="callout-title">Troquei de celular ou reinstalei o app</span>
+            <p>A licença fica vinculada à <strong>conta Google</strong> usada na compra. Entre com a mesma conta na Google Play, abra a tela de licença e toque em <strong>“Já comprei: restaurar compra”</strong>.</p>
+        </div>
+        <p>Reembolsos seguem a política da Google Play e o direito de arrependimento de 7 dias do Código de Defesa do Consumidor. Veja os <a href="termos.html">Termos de Uso</a>.</p>
+
+        <h2 id="problemas"><span class="num">10.</span>Problemas comuns</h2>
+        <div class="doc-figure-row">
+            <figure class="doc-figure">
+                <img src="imagens/manual/manual_erro_conexao.jpg" alt="Tela com erro de conexão" loading="lazy">
+                <figcaption>Terminal sem conexão com o sistema</figcaption>
+            </figure>
+            <div>
+                <h3 style="margin-top:0">Aparece “ERRO CONEXÃO” ou “DESCONECTADO”</h3>
+                <ul>
+                    <li>Confira se o aparelho está no <strong>mesmo Wi-Fi</strong> do computador do sistema.</li>
+                    <li>Confira o <strong>IP do Servidor</strong> e a <strong>Porta</strong> nas Configurações.</li>
+                    <li>Verifique se o computador está ligado e o <strong>serviço de microterminais</strong> do sistema está aberto.</li>
+                    <li>Toque na faixa de situação para tentar de novo. Se persistir, o antivírus/firewall do computador pode estar bloqueando a porta: fale com o fornecedor do sistema.</li>
+                </ul>
+                <h3>Conecta, mas o visor mostra uma mensagem como “NÃO CONFIGURADO”</h3>
+                <p>Essa mensagem vem do <strong>seu sistema</strong>: ele recebeu a conexão, mas não reconheceu o aparelho. Peça ao fornecedor para cadastrar o <strong>IP deste aparelho</strong> (mostrado nas Configurações). Se o IP mudou, fixe-o no roteador.</p>
+            </div>
+        </div>
+        <h3>Aparecem caracteres estranhos no visor</h3>
+        <p>O <strong>Protocolo</strong> ou o <strong>Formato do visor</strong> não combinam com o sistema. Volte para <strong>VT100 / ANSI</strong> e <strong>2×20</strong>, ou use os valores indicados pelo fornecedor.</p>
+        <h3>Enter, Del ou Bck não funcionam</h3>
+        <p>O sistema espera outros códigos para essas teclas. Volte ao padrão (Enter = CR, Del = ESC, Bck = BS) em <strong>Configurações → Códigos das teclas</strong>, ou use os códigos informados pelo fornecedor.</p>
+        <h3>O número digitado não some ao apertar Bck</h3>
+        <p>Ligue <strong>“Backspace do servidor apaga o caractere”</strong> em Configurações → Protocolo.</p>
+        <h3>A tela do aparelho apaga sozinha</h3>
+        <p>Ligue <strong>“Manter Tela Ligada”</strong> nas Configurações. Em alguns aparelhos, também vale desativar a economia de bateria para o MTerminal nas configurações do Android.</p>
+        <h3>Comprei, mas o app continua pedindo a compra</h3>
+        <p>Verifique a internet e toque em <strong>“Já comprei: restaurar compra”</strong>. Pagamentos pendentes (ex.: boleto) liberam a licença assim que a Google Play confirmar.</p>
+
+        <h2 id="suporte"><span class="num">11.</span>Suporte</h2>
+        <p>Dúvidas sobre o aplicativo, a licença ou o pagamento: <a href="mailto:suporte.dns.apps@gmail.com?subject=MTerminal">suporte.dns.apps@gmail.com</a>. No app, o atalho fica em <strong>Configurações → Sobre → Suporte</strong>.</p>
+        <p>Dúvidas sobre cardápio, mesas, operadores, impressão e regras do seu estabelecimento são do <strong>sistema de automação</strong>: fale com o fornecedor dele.</p>
+        <figure class="doc-figure doc-figure-wide" style="margin-top:20px">
+            <img src="imagens/manual/manual_config_licenca_sobre.jpg" alt="Configurações: licença, termos, privacidade, site e suporte" loading="lazy">
+            <figcaption>Configurações → Licença e Sobre</figcaption>
+        </figure>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-copy">
+                <p>&copy; 2026 MTerminal. <a href="manual.html">Manual do Usuário</a> · <a href="integracao.html">Integradores</a> · <a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Política de Privacidade</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

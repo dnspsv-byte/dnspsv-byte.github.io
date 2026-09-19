@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação para Integradores — MTerminal</title>
+    <meta name="description" content="Especificação técnica do MTerminal para empresas de automação comercial: conexão TCP, identificação do terminal, sequências VT100/ANSI, enquadramento STX/ETX, códigos de teclas, leitor de código de barras e homologação.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar has-toggle">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+                <span class="logo-icon">>_</span>
+                <span class="logo-text">MTerminal</span>
+            </a>
+            <nav class="nav-links" id="menu-principal">
+                <a href="index.html">Início</a>
+                <a href="manual.html">Manual do Usuário</a>
+                <a href="integracao.html">Integradores</a>
+                <a href="termos.html">Termos</a>
+                <a href="privacidade.html">Privacidade</a>
+            </nav>
+            <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+                <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="doc-page">
+        <div class="doc-hero">
+            <span class="section-tag">DOCUMENTAÇÃO TÉCNICA</span>
+            <h1>Integração com <span class="gradient-text">sistemas de automação</span></h1>
+            <p>Especificação do MTerminal para empresas que desenvolvem sistemas de automação comercial (PDV, restaurantes, padarias, bares) com suporte a microterminais VT100 via TCP/IP.</p>
+        </div>
+
+        <nav class="doc-toc glass-card" aria-label="Sumário">
+            <a href="#visao">1. Visão geral</a>
+            <a href="#rede">2. Requisitos de rede</a>
+            <a href="#conexao">3. Conexão TCP e sessão</a>
+            <a href="#identificacao">4. Identificação do terminal</a>
+            <a href="#visor">5. Modelo do visor</a>
+            <a href="#vt100">6. Sequências VT100/ANSI</a>
+            <a href="#controles">7. Caracteres de controle</a>
+            <a href="#stxetx">8. Enquadramento STX/ETX</a>
+            <a href="#teclado">9. Teclado: bytes enviados</a>
+            <a href="#leitor">10. Leitor de código de barras</a>
+            <a href="#exemplo">11. Exemplo de sessão</a>
+            <a href="#teste">12. Servidor de teste</a>
+            <a href="#boas-praticas">13. Boas práticas do servidor</a>
+            <a href="#homologacao">14. Checklist de homologação</a>
+            <a href="#config">15. Configurações do app</a>
+            <a href="#limites">16. Limitações conhecidas</a>
+            <a href="#contato">17. Contato técnico</a>
+        </nav>
+
+        <h2 id="visao"><span class="num">1.</span>Visão geral</h2>
+        <p>O MTerminal é um aplicativo Android que emula um <strong>microterminal de pedidos</strong> (visor LCD de caracteres + teclado numérico) conectado por <strong>TCP/IP</strong> ao servidor de microterminais do seu sistema. Ele se comporta como um terminal "burro": <strong>toda a lógica fica no servidor</strong>.</p>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>Direção</th><th>Conteúdo</th></tr>
+                <tr><td><strong>Servidor → app</strong></td><td>Texto e sequências de controle VT100/ANSI (e, opcionalmente, quadros STX/ETX) que desenham o visor.</td></tr>
+                <tr><td><strong>App → servidor</strong></td><td>Um byte (ou poucos bytes) por tecla pressionada e o conteúdo lido pelo leitor de código de barras.</td></tr>
+            </table>
+        </div>
+        <p>Se o seu servidor já atende microterminais VT100 em rede (Ethernet/TCP), normalmente o MTerminal funciona <strong>sem nenhuma alteração</strong>: basta cadastrar o aparelho como mais um terminal.</p>
+
+        <h2 id="rede"><span class="num">2.</span>Requisitos de rede</h2>
+        <ul>
+            <li>O aparelho Android e o servidor na <strong>mesma rede local</strong> (Wi-Fi do estabelecimento), ou com rota IP entre eles.</li>
+            <li>O servidor <strong>escutando</strong> numa porta TCP (qualquer porta; as mais comuns são <code>1001</code> e <code>23</code>), com o firewall liberando conexões de entrada nela.</li>
+            <li>Recomendado: <strong>IP fixo</strong> para cada aparelho (reserva de DHCP no roteador), já que a maioria dos servidores identifica o terminal pelo IP.</li>
+            <li>A comunicação é <strong>TCP puro, sem criptografia</strong> (como os microterminais físicos). Use apenas em redes confiáveis; o app não expõe portas nem aceita conexões de entrada.</li>
+        </ul>
+
+        <h2 id="conexao"><span class="num">3.</span>Conexão TCP e sessão</h2>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>Item</th><th>Comportamento do MTerminal</th></tr>
+                <tr><td>Papel</td><td><strong>Cliente TCP</strong>. O app conecta em <code>IP:porta</code> configurados; o servidor escuta.</td></tr>
+                <tr><td>Conexões por aparelho</td><td><strong>Uma</strong>. Antes de abrir uma nova conexão, a anterior é sempre encerrada.</td></tr>
+                <tr><td>Tempo limite de conexão</td><td>5 segundos.</td></tr>
+                <tr><td>Reconexão automática</td><td>Após falha ou queda: 2 s, 4 s, 8 s, 16 s e depois a cada 30 s, até conectar. Volta a 2 s depois de uma conexão bem-sucedida.</td></tr>
+                <tr><td>Retorno ao app</td><td>Ao voltar do segundo plano sem conexão, reconecta imediatamente (o Android pode derrubar o socket de apps em segundo plano).</td></tr>
+                <tr><td>Alteração de configurações</td><td>Ao salvar, encerra a conexão e abre uma nova.</td></tr>
+                <tr><td>Opções do socket</td><td><code>TCP_NODELAY</code> ativado (cada tecla sai na hora). Sem keep-alive de aplicação.</td></tr>
+                <tr><td>Codificação</td><td><strong>Latin-1 (ISO-8859-1)</strong>, 1 byte por caractere, nos dois sentidos. Caracteres fora da faixa são enviados como <code>?</code>.</td></tr>
+                <tr><td>Envio de teclas</td><td>Somente com a conexão estabelecida; teclas pressionadas sem conexão são descartadas.</td></tr>
+                <tr><td>Estado ao reconectar</td><td>O interpretador de sequências é reiniciado, mas o conteúdo do visor permanece até o servidor redesenhá-lo.</td></tr>
+            </table>
+        </div>
+
+        <h2 id="identificacao"><span class="num">4.</span>Identificação do terminal</h2>
+        <p>O MTerminal suporta as duas formas usuais:</p>
+        <h3>4.1 Pelo IP de origem (padrão, recomendado)</h3>
+        <p>O app <strong>não envia nada</strong> ao conectar. O servidor identifica o terminal pelo endereço IP remoto da conexão, como faz com microterminais físicos. O IP do aparelho aparece para o usuário em <em>Configurações → IP deste aparelho</em>, para ser cadastrado no seu sistema.</p>
+        <h3>4.2 Por identificador enviado ao conectar (opcional)</h3>
+        <p>Com a opção <em>“Enviar identificador ao conectar”</em> ligada, logo após o <code>connect</code> o app envia o campo <em>Identificador do Terminal</em> seguido de CR:</p>
+        <pre><code>&lt;identificador&gt; 0x0D        ex.: "01\r" → 30 31 0D</code></pre>
+        <div class="callout callout-warn">
+            <span class="callout-title">Atenção</span>
+            <p>Se o seu servidor identifica por IP, <strong>deixe essa opção desligada</strong>: caso contrário o identificador chega ao servidor como se tivesse sido digitado (ex.: “01” + Enter no prompt de operador).</p>
+        </div>
+
+        <h2 id="visor"><span class="num">5.</span>Modelo do visor</h2>
+        <ul>
+            <li>Formatos: <strong>2×16, 2×20 (padrão), 2×40 e 4×20</strong> (linhas × colunas), escolhidos pelo usuário. Configure no app o mesmo formato do terminal cadastrado no seu sistema.</li>
+            <li>Coordenadas das sequências VT100 são <strong>1-based</strong>: linha 1 e coluna 1 são o canto superior esquerdo. Valores fora do visor são <strong>limitados</strong> à borda (ex.: coluna 30 num visor de 20 colunas vira coluna 20).</li>
+            <li>Ao escrever na última coluna, o cursor vai para o início da <strong>linha seguinte</strong>.</li>
+            <li><strong>O visor não rola.</strong> Passando da última linha (por texto ou LF), o cursor volta para a <strong>linha 1</strong>. Posicione o cursor explicitamente e limpe as linhas em vez de depender de rolagem.</li>
+            <li>O cursor é exibido como um bloco piscando na posição atual.</li>
+            <li><strong>Sem eco local:</strong> o app não escreve no visor o que é digitado. O servidor deve ecoar cada caractere que quiser mostrar (como nos microterminais físicos).</li>
+        </ul>
+
+        <h2 id="vt100"><span class="num">6.</span>Sequências VT100/ANSI suportadas</h2>
+        <p>O interpretador é contínuo: sequências divididas entre pacotes TCP são tratadas corretamente. Notação: <code>ESC</code> = <code>0x1B</code>; <code>CSI</code> = <code>ESC [</code>; <em>n</em> omitido assume o padrão indicado.</p>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>Sequência</th><th>Nome</th><th>Efeito no MTerminal</th></tr>
+                <tr><td><code>CSI 2 J</code></td><td>Limpar tela</td><td>Limpa o visor inteiro, cursor na linha 1, coluna 1.</td></tr>
+                <tr><td><code>CSI J</code> / <code>CSI 0 J</code></td><td>Limpar até o fim</td><td>Limpa do cursor até o fim do visor (cursor não se move).</td></tr>
+                <tr><td><code>CSI 1 J</code></td><td>Limpar até o início</td><td>Limpa do início do visor até o cursor.</td></tr>
+                <tr><td><code>CSI K</code> / <code>CSI 0 K</code></td><td>Limpar linha → fim</td><td>Limpa do cursor até o fim da linha.</td></tr>
+                <tr><td><code>CSI 1 K</code></td><td>Limpar linha ← início</td><td>Limpa do início da linha até o cursor.</td></tr>
+                <tr><td><code>CSI 2 K</code></td><td>Limpar linha</td><td>Limpa a linha inteira.</td></tr>
+                <tr><td><code>CSI <em>l</em> ; <em>c</em> H</code> / <code>f</code></td><td>Posicionar cursor</td><td>Linha <em>l</em>, coluna <em>c</em> (padrão 1;1). Aceita zeros à esquerda (<code>ESC[01;05H</code>) e um só parâmetro (<code>ESC[2H</code> = linha 2, coluna 1).</td></tr>
+                <tr><td><code>CSI H</code></td><td>Cursor no início</td><td>Linha 1, coluna 1.</td></tr>
+                <tr><td><code>CSI <em>n</em> A/B/C/D</code></td><td>Mover cursor</td><td>Cima/baixo/direita/esquerda <em>n</em> posições (padrão 1), sem sair do visor.</td></tr>
+                <tr><td><code>CSI s</code> / <code>CSI u</code></td><td>Salvar/restaurar cursor</td><td>Guarda e recupera a posição do cursor.</td></tr>
+                <tr><td><code>ESC 7</code> / <code>ESC 8</code></td><td>Salvar/restaurar cursor</td><td>Idem (forma DEC).</td></tr>
+                <tr><td><code>ESC c</code></td><td>Reset</td><td>Limpa o visor e posiciona o cursor em 1;1.</td></tr>
+                <tr><td><code>ESC D</code> / <code>ESC M</code></td><td>Index / Reverse index</td><td>Cursor uma linha abaixo/acima (limitado ao visor).</td></tr>
+                <tr><td><code>ESC E</code></td><td>Próxima linha</td><td>Início da linha seguinte.</td></tr>
+                <tr><td><code>CSI 0 m</code>, <code>CSI 7 m</code>, <code>CSI 27 m</code>, <code>CSI 0;7 m</code></td><td>Atributos</td><td>Aceitos (vários parâmetros permitidos), <strong>sem efeito visual</strong>: o visor não exibe vídeo reverso.</td></tr>
+                <tr><td><code>CSI 5 i</code> … <code>CSI 4 i</code></td><td>Media copy (impressora/porta auxiliar)</td><td>Tudo entre as duas sequências é <strong>descartado</strong> (não aparece no visor).</td></tr>
+                <tr><td><code>CSI ? … h/l</code> e outros modos privados</td><td>Modos DEC</td><td>Ignorados sem imprimir nada (ex.: <code>ESC[?25l</code>, <code>ESC[?24h</code>).</td></tr>
+                <tr><td><code>ESC O <em>x</em></code>, <code>ESC ( <em>x</em></code>, <code>ESC ) <em>x</em></code>, <code>ESC # <em>x</em></code></td><td>SS3 / charset / DEC</td><td>Ignorados (consomem o próximo byte).</td></tr>
+                <tr><td>Qualquer outro <code>CSI … <em>final</em></code></td><td>—</td><td>Ignorado sem imprimir nada.</td></tr>
+            </table>
+        </div>
+
+        <h2 id="controles"><span class="num">7.</span>Caracteres de controle e texto</h2>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>Byte</th><th>Nome</th><th>Efeito</th></tr>
+                <tr><td><code>0x07</code></td><td>BEL</td><td>Emite o som de clique do sistema (se o bip estiver ativado no app).</td></tr>
+                <tr><td><code>0x08</code></td><td>BS</td><td>Cursor uma posição à esquerda <strong>e apaga o caractere</strong> (padrão dos microterminais). O usuário pode desligar o apagamento (VT100 estrito). <code>BS espaço BS</code> também funciona.</td></tr>
+                <tr><td><code>0x09</code></td><td>TAB</td><td>Avança até a próxima coluna múltipla de 8.</td></tr>
+                <tr><td><code>0x0A</code>, <code>0x0B</code>, <code>0x0C</code></td><td>LF / VT / FF</td><td>Início da linha seguinte (sem rolagem: da última linha volta para a primeira).</td></tr>
+                <tr><td><code>0x0D</code></td><td>CR</td><td>Cursor na coluna 1 da linha atual.</td></tr>
+                <tr><td><code>0x02</code> / <code>0x03</code></td><td>STX / ETX</td><td>Ver seção 8.</td></tr>
+                <tr><td><code>0x20</code>–<code>0x7E</code></td><td>ASCII imprimível</td><td>Escrito na posição do cursor.</td></tr>
+                <tr><td><code>0xA0</code>–<code>0xFF</code></td><td>Latin-1</td><td>Escrito (acentos: <code>Ã</code>=<code>0xC3</code>, <code>Ç</code>=<code>0xC7</code>, <code>É</code>=<code>0xC9</code>…).</td></tr>
+                <tr><td>Demais (<code>0x00</code>–<code>0x1F</code>, <code>0x7F</code>–<code>0x9F</code>)</td><td>—</td><td>Ignorados.</td></tr>
+            </table>
+        </div>
+
+        <h2 id="stxetx"><span class="num">8.</span>Enquadramento STX/ETX</h2>
+        <p>Definido pelo usuário em <em>Configurações → Protocolo</em>:</p>
+        <h3>8.1 “VT100 / ANSI” (padrão)</h3>
+        <p><code>STX</code> (<code>0x02</code>) e <code>ETX</code> (<code>0x03</code>) são apenas delimitadores e são descartados; o conteúdo segue como VT100. Um eventual byte de verificação (LRC) após o ETX seria tratado como texto, então não o envie nesse modo.</p>
+        <h3>8.2 “STX/ETX com comandos”</h3>
+        <p>Para sistemas que usam quadros <code>STX &lt;comando&gt; &lt;dados&gt; ETX</code>:</p>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>Quadro</th><th>Efeito</th><th>Exemplo</th></tr>
+                <tr><td><code>STX D &lt;texto&gt; ETX</code></td><td>Escreve o texto (pode conter sequências VT100).</td><td><code>02 44 "MESA:" 03</code></td></tr>
+                <tr><td><code>STX L ETX</code></td><td>Limpa o visor e posiciona em 1;1.</td><td><code>02 4C 03</code></td></tr>
+                <tr><td><code>STX C &lt;l&gt;&lt;cc&gt; ETX</code></td><td>Posiciona o cursor com linha (1 dígito) e coluna (2 dígitos) <strong>a partir de 0</strong>.</td><td><code>STX C105 ETX</code> = linha 2, coluna 6</td></tr>
+                <tr><td><code>STX P … ETX</code> / <code>STX S … ETX</code></td><td>Dados para impressora/serial do terminal: <strong>descartados</strong>.</td><td>—</td></tr>
+                <tr><td>Outro comando</td><td>O conteúdo do quadro é tratado como VT100.</td><td>—</td></tr>
+            </table>
+        </div>
+        <p>Sequências VT100 fora de quadros continuam funcionando nesse modo. Quadros com mais de 512 bytes sem ETX são exibidos como texto.</p>
+
+        <h2 id="teclado"><span class="num">9.</span>Teclado: bytes enviados</h2>
+        <p>Cada toque envia imediatamente (sem buffer de linha) os bytes abaixo. Enter, Del e Bck são configuráveis pelo usuário; os valores padrão estão em destaque.</p>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>Tecla</th><th>Envia</th><th>Opções</th></tr>
+                <tr><td><strong>0</strong>–<strong>9</strong></td><td><code>0x30</code>–<code>0x39</code></td><td>—</td></tr>
+                <tr><td><strong>.</strong></td><td><code>0x2E</code></td><td>—</td></tr>
+                <tr><td><strong>,</strong></td><td><code>0x2C</code></td><td>—</td></tr>
+                <tr><td><strong>Enter</strong></td><td><strong>CR</strong> <code>0x0D</code></td><td>CR+LF <code>0D 0A</code> · LF <code>0A</code></td></tr>
+                <tr><td><strong>Del</strong></td><td><strong>ESC</strong> <code>0x1B</code></td><td>BS <code>08</code> · DEL <code>7F</code></td></tr>
+                <tr><td><strong>Bck</strong></td><td><strong>BS</strong> <code>0x08</code></td><td>DEL <code>7F</code></td></tr>
+            </table>
+        </div>
+        <div class="callout callout-info">
+            <span class="callout-title">Dica</span>
+            <p>Trate a entrada como um <strong>fluxo de bytes</strong>: vários toques (e a leitura do leitor de código de barras) podem chegar no mesmo segmento TCP.</p>
+        </div>
+
+        <h2 id="leitor"><span class="num">10.</span>Leitor de código de barras</h2>
+        <p>A leitura pela câmera envia o conteúdo do código seguido da sequência configurada para <strong>Enter</strong>, como um leitor de teclado:</p>
+        <pre><code>7891000012345 + CR  →  37 38 39 31 30 30 30 30 31 32 33 34 35 0D</code></pre>
+        <ul>
+            <li>Formatos: EAN-13, EAN-8, UPC-A/E, Code 128, Code 39, Code 93, ITF, Codabar, QR Code, Data Matrix, PDF417 e Aztec (Google ML Kit, processado no aparelho).</li>
+            <li>Uma leitura por abertura do leitor; o conteúdo é enviado exatamente como lido (sem prefixo/sufixo além do Enter).</li>
+        </ul>
+
+        <h2 id="exemplo"><span class="num">11.</span>Exemplo de sessão</h2>
+        <p>Login do operador “125” num visor 2×20, com eco feito pelo servidor:</p>
+        <pre><code># servidor → app: limpa e pede o operador
+ESC[2J ESC[1;1H "OPERADOR:"            1B 5B 32 4A 1B 5B 31 3B 31 48 4F 50 45 ...
+
+# usuário digita 1, 2, 5 (um byte por toque); o servidor ecoa cada um
+app → servidor: 31          servidor → app: 31
+app → servidor: 32          servidor → app: 32
+app → servidor: 35          servidor → app: 35
+
+# usuário corrige com Bck: o servidor ecoa BS (o app apaga o "5")
+app → servidor: 08          servidor → app: 08
+
+# Enter confirma; servidor responde na linha 2
+app → servidor: 0D
+servidor → app: ESC[2;1H ESC[K "BEM-VINDO JOAO"</code></pre>
+
+        <h2 id="teste"><span class="num">12.</span>Servidor de teste</h2>
+        <p>Para testar sem o sistema completo, rode este servidor mínimo (Python 3) no computador e aponte o app para o IP dele, porta <code>1001</code>. Ele desenha uma tela, ecoa os dígitos, trata Bck e responde ao Enter:</p>
+        <pre><code>import socket, threading
+
+ESC = "\x1b"
+
+def atender(conn, addr):
+    print("terminal conectado:", addr[0])
+    def envia(texto):
+        conn.sendall(texto.encode("latin-1"))
+    envia(f"{ESC}[2J{ESC}[1;1HMTERMINAL TESTE{ESC}[2;1HDIGITE: ")
+    digitado = ""
+    while True:
+        dados = conn.recv(64)
+        if not dados:
+            break
+        for b in dados:
+            ch = chr(b)
+            if ch.isdigit():
+                digitado += ch
+                envia(ch)                      # eco
+            elif b == 0x08 and digitado:       # Bck
+                digitado = digitado[:-1]
+                envia("\x08")
+            elif b == 0x0D:                    # Enter
+                envia(f"{ESC}[1;1H{ESC}[KRECEBIDO: {digitado}"
+                      f"{ESC}[2;1H{ESC}[KDIGITE: ")
+                digitado = ""
+            elif b == 0x1B:                    # Del
+                digitado = ""
+                envia(f"{ESC}[2;1H{ESC}[KDIGITE: ")
+    conn.close()
+
+srv = socket.socket()
+srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+srv.bind(("0.0.0.0", 1001))
+srv.listen()
+while True:
+    threading.Thread(target=atender, args=srv.accept(), daemon=True).start()</code></pre>
+        <p>Alternativa rápida para ver apenas a exibição: <code>ncat -l 1001</code> (ou <code>nc -l -p 1001</code> no Linux) e digite o texto a enviar.</p>
+
+        <h2 id="boas-praticas"><span class="num">13.</span>Boas práticas do servidor</h2>
+        <ol class="doc-steps">
+            <li><strong>Aceite várias conexões simultâneas</strong>, uma por aparelho.</li>
+            <li><strong>Reconexão do mesmo IP:</strong> ao receber uma nova conexão de um IP que já tem sessão, encerre a sessão antiga e continue na nova. O app nunca mantém duas conexões, então a antiga está morta.</li>
+            <li><strong>Redesenhe a tela inteira</strong> no início de cada conexão (<code>ESC[2J</code> + conteúdo), porque o visor mantém o conteúdo anterior.</li>
+            <li><strong>Posicione o cursor explicitamente</strong> (<code>ESC[l;cH</code>) e limpe com <code>ESC[K</code>, em vez de depender de LF e rolagem.</li>
+            <li><strong>Faça o eco</strong> dos caracteres digitados que devem aparecer no visor, e ecoe <code>BS</code> ao apagar.</li>
+            <li><strong>Trate a entrada como fluxo</strong>: não assuma um toque por pacote.</li>
+            <li><strong>Não derrube conexões ociosas</strong> muito cedo: o operador pode passar vários minutos sem digitar. Detecte conexões mortas por falha de envio ou pela chegada de uma nova conexão do mesmo IP.</li>
+            <li>Mantenha o texto dentro do formato configurado (ex.: 20 colunas no 2×20) e use Latin-1 para acentos.</li>
+        </ol>
+
+        <h2 id="homologacao"><span class="num">14.</span>Checklist de homologação</h2>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>#</th><th>Teste</th><th>Resultado esperado</th></tr>
+                <tr><td>1</td><td>Cadastrar o IP do aparelho e abrir o app</td><td>Status “CONECTADO” e tela inicial do sistema no visor.</td></tr>
+                <tr><td>2</td><td>Digitar números</td><td>Eco correto na posição esperada.</td></tr>
+                <tr><td>3</td><td>Bck, Del e Enter</td><td>Apagar, cancelar e confirmar funcionam no fluxo do sistema.</td></tr>
+                <tr><td>4</td><td>Ler um código de barras de produto</td><td>Produto lançado como se tivesse sido digitado + Enter.</td></tr>
+                <tr><td>5</td><td>Textos com acentos</td><td>Acentos exibidos corretamente (Latin-1).</td></tr>
+                <tr><td>6</td><td>Desligar o Wi-Fi do aparelho por 30 s e religar</td><td>O app reconecta sozinho; o servidor aceita a nova conexão e redesenha a tela.</td></tr>
+                <tr><td>7</td><td>Reiniciar o servidor de microterminais</td><td>O app reconecta em até 30 s.</td></tr>
+                <tr><td>8</td><td>Vários aparelhos ao mesmo tempo</td><td>Cada um com sua sessão, sem interferência.</td></tr>
+                <tr><td>9</td><td>Alterar e salvar as Configurações do app</td><td>Uma única nova conexão; nenhuma sessão duplicada no servidor.</td></tr>
+                <tr><td>10</td><td>Fluxo completo de venda (mesa/comanda, itens, fechamento)</td><td>Igual ao microterminal físico equivalente.</td></tr>
+            </table>
+        </div>
+
+        <h2 id="config"><span class="num">15.</span>Configurações do app (referência)</h2>
+        <p>Para orientar o cliente final, estes são os campos em <em>Configurações</em> e os valores padrão:</p>
+        <div class="doc-table-wrap">
+            <table class="doc-table">
+                <tr><th>Campo</th><th>Padrão</th><th>Observação</th></tr>
+                <tr><td>IP do Servidor</td><td>—</td><td>IP ou nome do host do servidor de microterminais.</td></tr>
+                <tr><td>Porta TCP</td><td><code>1001</code></td><td>1 a 65535.</td></tr>
+                <tr><td>Identificador do Terminal</td><td>—</td><td>Exibido no app; enviado apenas se a opção abaixo estiver ligada.</td></tr>
+                <tr><td>Enviar identificador ao conectar</td><td>Desligado</td><td>Seção 4.2.</td></tr>
+                <tr><td>Protocolo</td><td>VT100 / ANSI</td><td>Ou “STX/ETX com comandos” (seção 8).</td></tr>
+                <tr><td>Backspace do servidor apaga o caractere</td><td>Ligado</td><td>Desligue para VT100 estrito (BS só move o cursor).</td></tr>
+                <tr><td>Formato do visor</td><td>2×20</td><td>2×16, 2×20, 2×40, 4×20.</td></tr>
+                <tr><td>Enter / Del / Bck</td><td>CR / ESC / BS</td><td>Seção 9.</td></tr>
+                <tr><td>Tema, bip, manter tela ligada</td><td>Verde, ligado, ligado</td><td>Apenas visuais/conforto.</td></tr>
+            </table>
+        </div>
+
+        <h2 id="limites"><span class="num">16.</span>Limitações conhecidas</h2>
+        <ul>
+            <li>Sem impressora, porta serial ou balança acopladas ao terminal: dados enviados a elas (media copy, quadros <code>P</code>/<code>S</code>) são descartados.</li>
+            <li>Sem vídeo reverso, piscante ou sublinhado no visor.</li>
+            <li>Sem rolagem de tela (seção 5).</li>
+            <li>Sem teclas de função dedicadas (F1–F4) no teclado atual.</li>
+            <li>Sem TLS; uso previsto em rede local.</li>
+            <li>Com o app em segundo plano ou a tela desligada, o Android pode encerrar a conexão; o app reconecta ao voltar.</li>
+        </ul>
+
+        <h2 id="contato"><span class="num">17.</span>Contato técnico</h2>
+        <p>Dúvidas de integração, relatos de incompatibilidade ou pedidos de novas sequências: <a href="mailto:suporte.dns.apps@gmail.com?subject=MTerminal%20-%20Integra%C3%A7%C3%A3o">suporte.dns.apps@gmail.com</a>. Ajuda informar o sistema, a versão, o formato do visor e, se possível, uma captura dos bytes enviados pelo servidor.</p>
+        <p>Para orientar seus clientes no uso diário, indique o <a href="manual.html">Manual do Usuário</a>.</p>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-copy">
+                <p>&copy; 2026 MTerminal. <a href="manual.html">Manual do Usuário</a> · <a href="integracao.html">Integradores</a> · <a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Política de Privacidade</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
