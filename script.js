@@ -60,7 +60,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 2. FAQ Accordion Toggle ---
+    // --- 2. Menu recolhível no celular ---
+    const navbar = document.querySelector('.navbar');
+    const navToggle = document.querySelector('.nav-toggle');
+
+    if (navbar && navToggle) {
+        const setMenu = (open) => {
+            navbar.classList.toggle('nav-open', open);
+            navToggle.setAttribute('aria-expanded', String(open));
+            navToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+        };
+
+        navToggle.addEventListener('click', () => {
+            setMenu(!navbar.classList.contains('nav-open'));
+        });
+
+        // Fecha ao escolher uma seção.
+        navbar.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => setMenu(false));
+        });
+    }
+
+    // --- 3. FAQ Accordion Toggle ---
     const faqItems = document.querySelectorAll('.faq-item');
 
     faqItems.forEach(item => {
