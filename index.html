@@ -3,65 +3,509 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MTerminal — Microterminal VT100 para Android</title>
-    <meta name="description" content="MTerminal transforma o Android em um microterminal de atendimento VT100/ANSI conectado ao seu sistema de automação comercial. 7 dias grátis.">
+    <title>MTerminal — Microterminal VT100 Android para Atendimento de Pedidos</title>
+    <meta name="description" content="Transforme qualquer smartphone ou tablet Android em um Microterminal de Pedidos ultra-rápido. 100% compatível com VT100/ANSI, leitor de código de barras por câmera, 7 dias grátis e licença vitalícia com pagamento único.">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- Background Ambient Glow -->
+    <div class="ambient-glow bg-glow-1"></div>
+    <div class="ambient-glow bg-glow-2"></div>
+
+    <!-- Header / Navbar -->
     <header class="navbar">
         <div class="container nav-container">
-            <a href="index.html" class="brand-logo">
+            <a href="#" class="brand-logo">
                 <span class="logo-icon">>_</span>
                 <span class="logo-text">MTerminal</span>
+                <span class="badge-android">Android VT100</span>
             </a>
             <nav class="nav-links">
-                <a href="index.html">Início</a>
-                <a href="termos.html">Termos de Uso</a>
-                <a href="privacidade.html">Privacidade</a>
+                <a href="#beneficios">Vantagens</a>
+                <a href="#telas">Telas & UX</a>
+                <a href="#temas">Temas LCD</a>
+                <a href="#comparativo">Comparativo</a>
+                <a href="#preço">Licenciamento</a>
+                <a href="#faq">FAQ</a>
             </nav>
+            <a href="#preço" class="btn btn-emerald btn-glow">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5l10 -10"/></svg>
+                Comprar Licença
+            </a>
         </div>
     </header>
 
-    <main class="legal-page">
-        <h1>MTerminal</h1>
-        <p class="legal-updated">Microterminal VT100 para Android</p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    O Fim dos Microterminais Físicos Caros
+                </div>
+                <h1 class="hero-title">
+                    Transforme Qualquer Celular Android no seu <span class="gradient-text">Microterminal de Pedidos</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Substitua equipamentos físicos de R$ 2.500 por um aplicativo leve, ultra-rápido e 100% compatível com o protocolo VT100/ANSI do seu PDV. Mobilidade total via Wi-Fi sem mensalidades.
+                </p>
+                <div class="hero-cta-group">
+                    <a href="#preço" class="btn btn-lg btn-emerald btn-glow">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" height="24">
+                        Teste Grátis por 7 Dias
+                    </a>
+                    <a href="#telas" class="btn btn-lg btn-outline">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Ver Demonstração de Telas
+                    </a>
+                </div>
+                <div class="hero-trust-row">
+                    <div class="trust-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>7 Dias Grátis + Pagamento Único</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Sem Mensalidades</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Conexão Wi-Fi Local (< 20ms)</span>
+                    </div>
+                </div>
+            </div>
 
-        <p>O <strong>MTerminal</strong> transforma um celular ou tablet Android em um microterminal de atendimento para
-            restaurantes, bares, padarias e lanchonetes. Ele se conecta pela rede (TCP/IP) ao sistema de automação comercial do
-            estabelecimento e usa o protocolo VT100/ANSI, com visor LCD, teclado de microterminal e leitor de código de barras
-            pela câmera.</p>
-
-        <h2>Licença</h2>
-        <div class="legal-box">
-            <table class="price-table">
-                <tr><th>Situação</th><th>Condição</th></tr>
-                <tr><td><strong>Teste grátis</strong></td><td>7 dias com todas as funções, sem cobrança.</td></tr>
-                <tr><td><strong>Compra durante o teste</strong></td><td>Licença vitalícia por <strong>R$ 49,00</strong> (pagamento único).</td></tr>
-                <tr><td><strong>Compra após o teste</strong></td><td>Licença vitalícia por <strong>R$ 99,00</strong> (pagamento único).</td></tr>
-            </table>
-            <p>Pagamento pela Google Play, sem mensalidades. Detalhes nos <a href="termos.html">Termos de Uso</a>.</p>
+            <!-- Hero Mockup Showcase -->
+            <div class="hero-mockup-wrapper">
+                <div class="phone-frame glass-card">
+                    <img src="imagens/tela_microterminal_lcd.jpg" alt="MTerminal Android Screen" class="mockup-img">
+                </div>
+                <!-- Floating Feature Badges -->
+                <div class="floating-badge badge-top-right glass-card">
+                    <span class="icon">⚡</span>
+                    <div>
+                        <strong>Latência < 20ms</strong>
+                        <small>Stream TCP não-bloqueante</small>
+                    </div>
+                </div>
+                <div class="floating-badge badge-bottom-left glass-card">
+                    <span class="icon">📸</span>
+                    <div>
+                        <strong>Barcode por Câmera</strong>
+                        <small>Leitura instantânea de EAN/QR</small>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <h2>Documentos</h2>
-        <ul>
-            <li><a href="termos.html">Termos de Uso</a></li>
-            <li><a href="privacidade.html">Política de Privacidade</a></li>
-        </ul>
+    <!-- Stats Section -->
+    <section class="stats-bar">
+        <div class="container stats-container">
+            <div class="stat-card">
+                <h3 class="stat-number">80%</h3>
+                <p class="stat-label">Economia em Relação a Hardware Físico</p>
+            </div>
+            <div class="stat-card">
+                <h3 class="stat-number">100%</h3>
+                <p class="stat-label">Compatibilidade VT100 / ANSI Padrão</p>
+            </div>
+            <div class="stat-card">
+                <h3 class="stat-number">0</h3>
+                <p class="stat-label">Cabos de Rede Necessários no Salão</p>
+            </div>
+            <div class="stat-card">
+                <h3 class="stat-number">R$ 0</h3>
+                <p class="stat-label">Mensalidades Recorrentes</p>
+            </div>
+        </div>
+    </section>
 
-        <h2>Suporte</h2>
-        <p>Denis Roberto de Castro Camara Carneiro —
-            <a href="mailto:suporte.dns.apps@gmail.com?subject=MTerminal">suporte.dns.apps@gmail.com</a></p>
-    </main>
+    <!-- Problem vs Solution -->
+    <section id="beneficios" class="section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">POR QUE MUDAR?</span>
+                <h2 class="section-title">Microterminais Antigos vs. <span class="gradient-text">MTerminal Android</span></h2>
+                <p class="section-desc">Entenda por que continuar comprando microterminais de hardware antigos é rasgar dinheiro no seu estabelecimento.</p>
+            </div>
 
+            <div class="comparison-grid">
+                <!-- Legacy Card -->
+                <div class="comparison-card legacy-card glass-card">
+                    <div class="card-badge badge-red">MÉTODO ANTIGO (HARDWARE FÍSICO)</div>
+                    <h3>Terminais de Membrana Tradicionais</h3>
+                    <ul class="feature-list legacy-list">
+                        <li>
+                            <span class="cross">✕</span>
+                            <strong>Custo Abusivo:</strong> R$ 800 a R$ 2.500 por aparelho.
+                        </li>
+                        <li>
+                            <span class="cross">✕</span>
+                            <strong>Preso à Parede/Balcão:</strong> Garçom precisa caminhar até o terminal a cada pedido.
+                        </li>
+                        <li>
+                            <span class="cross">✕</span>
+                            <strong>Desgaste Mecânico:</strong> Teclado de membrana rasga e afunda com gordura e umidade.
+                        </li>
+                        <li>
+                            <span class="cross">✕</span>
+                            <strong>Cabeamento Frágil:</strong> Exige dezenas de metros de cabos seriais/ethernet e comutadores.
+                        </li>
+                        <li>
+                            <span class="cross">✕</span>
+                            <strong>Leitor Externo Obrigatório:</strong> Exige compra extra de leitor de código de barras físico.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- MTerminal Card -->
+                <div class="comparison-card winner-card glass-card">
+                    <div class="card-badge badge-green">SOLUÇÃO MODERNA (MTERMINAL)</div>
+                    <h3>Aplicativo Mobile Android</h3>
+                    <ul class="feature-list winner-list">
+                        <li>
+                            <span class="check">✓</span>
+                            <strong>7 dias grátis e pagamento único:</strong> R$ 49 comprando durante o teste (R$ 99 depois), licença vitalícia sem mensalidades.
+                        </li>
+                        <li>
+                            <span class="check">✓</span>
+                            <strong>Mobilidade Total Wi-Fi:</strong> Atendimento direto na mesa ao lado do cliente.
+                        </li>
+                        <li>
+                            <span class="check">✓</span>
+                            <strong>Tela Touch Indevassável:</strong> Resposta tátil com vibração, bip sonoro e vidro capacitivo.
+                        </li>
+                        <li>
+                            <span class="check">✓</span>
+                            <strong>Zero Cabos:</strong> Conecta instantaneamente via Wi-Fi ao servidor PDV da loja.
+                        </li>
+                        <li>
+                            <span class="check">✓</span>
+                            <strong>Scanner por Câmera Embutido:</strong> Lê EAN-13, EAN-8 e QR Code diretamente na tela.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screen Showcase Gallery -->
+    <section id="telas" class="section-padding bg-darker">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">GALERIA TELA A TELA</span>
+                <h2 class="section-title">Conheça a Interface Operacional</h2>
+                <p class="section-desc">Design retrô de alto contraste otimizado para garçons, atendentes de balcão e operadores de padaria.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Screen Card 1 -->
+                <div class="gallery-card glass-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="imagens/tela_microterminal_lcd.jpg" alt="Visor LCD 2x20 e Teclado 16 Teclas">
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Tela Principal de Atendimento</h3>
+                        <p>Visor LCD 2x20 monoespaçado com moldura retro e teclado industrial de 16 teclas (matriz 4x4) responsivas com teclas Bck, Del, Enter expandida e leitor de código de barras.</p>
+                    </div>
+                </div>
+
+                <!-- Screen Card 2 -->
+                <div class="gallery-card glass-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="imagens/tela_configuracoes.jpg" alt="Configurações de Conexão">
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Configurações de Conexão</h3>
+                        <p>Parametrização simples de IP do Servidor, Porta TCP, ID do Terminal, Temas de Cores e switches para Wakelock e Bip Sonoro.</p>
+                    </div>
+                </div>
+
+                <!-- Screen Card 3 -->
+                <div class="gallery-card glass-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="imagens/tela_leitor_barcode.jpg" alt="Leitor de Código de Barras via Câmera">
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Leitor Barcode por Câmera</h3>
+                        <p>Scanner laser por visão computacional (ML Kit). Lê produtos ou cartões de comanda instantaneamente com confirmação no visor.</p>
+                    </div>
+                </div>
+
+                <!-- Screen Card 4 -->
+                <div class="gallery-card glass-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="imagens/tela_licenciamento.jpg" alt="Licenciamento do Terminal Play Store">
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Licenciamento Transparente</h3>
+                        <p>7 dias grátis com contagem regressiva na tela. Comprando durante o teste a licença vitalícia sai por R$ 49,00; depois, R$ 99,00. Compra segura pela Google Play.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme Switcher Section -->
+    <section id="temas" class="section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">PERSONALIZAÇÃO VISUAL</span>
+                <h2 class="section-title">3 Padrões de Cores para o Visor LCD</h2>
+                <p class="section-desc">Escolha a combinação de iluminação que oferece a melhor visibilidade para a iluminação do seu estabelecimento.</p>
+            </div>
+
+            <div class="theme-switcher-wrapper">
+                <div class="theme-buttons">
+                    <button class="theme-btn active" data-theme="green">
+                        <span class="theme-dot green-dot"></span>
+                        Classic Green (Verde Fósforo)
+                    </button>
+                    <button class="theme-btn" data-theme="amber">
+                        <span class="theme-dot amber-dot"></span>
+                        Amber Gold (Âmbar Vintage)
+                    </button>
+                    <button class="theme-btn" data-theme="blue">
+                        <span class="theme-dot blue-dot"></span>
+                        Cyber Blue (Azul Cyan)
+                    </button>
+                </div>
+
+                <div class="theme-preview-box glass-card">
+                    <div class="theme-preview-img-container">
+                        <img id="theme-img-preview" src="imagens/tela_tema_verde.jpg" alt="Tema Verde MTerminal">
+                    </div>
+                    <div class="theme-preview-details">
+                        <h3 id="theme-title">Classic Green (Verde Fósforo)</h3>
+                        <p id="theme-desc">Inspirado nos monitores e displays industriais clássicos dos anos 80/90. Oferece o maior contraste visual em ambientes iluminados.</p>
+                        <div class="theme-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">Fundo LCD:</span>
+                                <span id="spec-bg" class="spec-value">#1A3C1A (Verde Escuro)</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Caracteres:</span>
+                                <span id="spec-fg" class="spec-value">#39FF14 (Neon Green)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Compatibility Comparison Matrix -->
+    <section id="comparativo" class="section-padding bg-darker">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">SUBSTITUIÇÃO DE HARDWARE</span>
+                <h2 class="section-title">Substitui Qualquer Microterminal do Mercado</h2>
+                <p class="section-desc">O MTerminal atende rigorosamente às especificações técnicas dos principais fabricantes nacionais.</p>
+            </div>
+
+            <div class="table-responsive glass-card">
+                <table class="comp-table">
+                    <thead>
+                        <tr>
+                            <th>Fabricante / Modelo</th>
+                            <th>Conexão Legada</th>
+                            <th>Display Físico</th>
+                            <th>Substituição MTerminal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bematech FIT Básico</strong></td>
+                            <td>Ethernet / Serial RS-232</td>
+                            <td>LCD 2x20 caracteres</td>
+                            <td><span class="badge-status">100% Compatível VT100</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gertec MT 720 / MT 740</strong></td>
+                            <td>TCP/IP (Porta 6550)</td>
+                            <td>Display 2x20 com backlight</td>
+                            <td><span class="badge-status">100% Compatível TCP Socket</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>IdTech (16 e 44 Teclas)</strong></td>
+                            <td>Ethernet / Teclado Membrana</td>
+                            <td>LCD 2x16 ou 2x20</td>
+                            <td><span class="badge-status">100% Compatível + Scanner Câmera</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wilbor / Gradual</strong></td>
+                            <td>RS-485 / Comutadoras</td>
+                            <td>LCD 2x16 / 2x40</td>
+                            <td><span class="badge-status">100% Compatível sem comutadores</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>WillTech TC V1.80</strong></td>
+                            <td>TCP/IP Ethernet</td>
+                            <td>Display 2x20</td>
+                            <td><span class="badge-status">100% Compatível + Mobilidade Wi-Fi</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">PASSO A PASSO</span>
+                <h2 class="section-title">Como Funciona a Implantação em 3 Minutos</h2>
+                <p class="section-desc">Sem necessidade de técnicos especializados ou passagem de cabos pelo estabelecimento.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card glass-card">
+                    <div class="step-number">1</div>
+                    <h3>Baixe o App no Celular</h3>
+                    <p>Faça o download do MTerminal na Google Play Store em qualquer celular ou tablet Android (Android 7.0 ao 14+).</p>
+                </div>
+                <div class="step-card glass-card">
+                    <div class="step-number">2</div>
+                    <h3>Digite o IP e Porta do PDV</h3>
+                    <p>Nas configurações do app, informe o IP do seu servidor de automação e a porta TCP (ex: 192.168.1.150:23 ou 1001).</p>
+                </div>
+                <div class="step-card glass-card">
+                    <div class="step-number">3</div>
+                    <h3>Atenda seus Clientes</h3>
+                    <p>Pronto! O visor LCD 2x20 se conectará instantaneamente e você já pode lançar comandas e mesas direto do salão.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="preço" class="section-padding bg-darker">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">INVESTIMENTO ÚNICO</span>
+                <h2 class="section-title">Preço Simples e Transparente</h2>
+                <p class="section-desc">Sem pegadinhas, sem mensalidades recorrentes e sem surpresas no fim do mês.</p>
+            </div>
+
+            <div class="pricing-card-wrapper">
+                <div class="pricing-card glass-card highlight-pricing">
+                    <div class="pricing-badge">PRODUTO OFICIAL GOOGLE PLAY</div>
+                    <h3 class="plan-name">Licença Vitalícia</h3>
+                    <p class="plan-desc">Teste grátis por 7 dias. Comprando durante o teste, você paga o preço promocional.</p>
+                    
+                    <div class="price-box">
+                        <span class="currency">R$</span>
+                        <span class="amount">49</span>
+                        <span class="cents">,00</span>
+                        <span class="period">/ pagamento único durante o teste</span>
+                    </div>
+                    <p class="plan-desc">Após os 7 dias de teste: <strong>R$ 99,00</strong> (pagamento único).</p>
+
+                    <ul class="pricing-features">
+                        <li><span class="check">✓</span> <strong>7 dias grátis</strong> com todas as funções</li>
+                        <li><span class="check">✓</span> Licença vitalícia vinculada à sua conta Google</li>
+                        <li><span class="check">✓</span> <strong>Sem mensalidades</strong> ou assinaturas</li>
+                        <li><span class="check">✓</span> Suporte a conexões TCP Socket ilimitadas</li>
+                        <li><span class="check">✓</span> Leitor de Código de Barras por Câmera inclusivo</li>
+                        <li><span class="check">✓</span> Atualizações gratuitas direto na Play Store</li>
+                        <li><span class="check">✓</span> Garantia e faturamento seguro da Google Play</li>
+                    </ul>
+
+                    <a href="#" class="btn btn-lg btn-emerald btn-glow btn-block">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" height="22">
+                        Começar Teste Grátis na Play Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">DÚVIDAS FREQUENTES</span>
+                <h2 class="section-title">Perguntas Frequentes</h2>
+            </div>
+
+            <div class="faq-accordion">
+                <div class="faq-item glass-card">
+                    <div class="faq-question">
+                        <span>O MTerminal vai funcionar com o meu sistema de automação/PDV?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Sim!</strong> Se o seu sistema de automação comercial (PDV) suporta a conexão de microterminais via Socket TCP/IP no protocolo VT100 ou ANSI, o MTerminal funcionará perfeitamente sem nenhuma modificação no seu servidor.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card">
+                    <div class="faq-question">
+                        <span>Preciso passar cabos de rede até o celular ou tablet?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Não!</strong> O MTerminal conecta-se diretamente através da rede Wi-Fi local do seu estabelecimento comercial, oferecendo mobilidade total para os garçons atenderem nas mesas.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card">
+                    <div class="faq-question">
+                        <span>Como funciona o pagamento da licença?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Você usa <strong>7 dias grátis</strong>. Comprando dentro do teste, a licença vitalícia custa <strong>R$ 49,00</strong>; depois dos 7 dias, <strong>R$ 99,00</strong>. O pagamento é único, processado pela Google Play, sem mensalidade. Veja os <a href="termos.html">Termos de Uso</a>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card">
+                    <div class="faq-question">
+                        <span>Posso testar em um servidor local antes de comprar?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Sim!</strong> Você pode configurar o IP para <code>localhost</code> (ou <code>127.0.0.1</code>) e a porta para <code>1001</code> ou a porta do seu PDV para homologar todos os testes de digitação e resposta no visor LCD 2x20.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#" class="brand-logo">
+                    <span class="logo-icon">>_</span>
+                    <span class="logo-text">MTerminal</span>
+                </a>
+                <p>A solução móvel moderna para microterminais de atendimento de pedidos em restaurantes, padarias, lanchonetes e bares.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Documentos e Suporte</h4>
+                <ul>
+                    <li><a href="termos.html">Termos de Uso</a></li>
+                    <li><a href="privacidade.html">Política de Privacidade</a></li>
+                    <li><a href="mailto:suporte.dns.apps@gmail.com?subject=MTerminal">suporte.dns.apps@gmail.com</a></li>
+                </ul>
+            </div>
             <div class="footer-copy">
-                <p>&copy; 2026 MTerminal. <a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Política de Privacidade</a></p>
+                <p>&copy; 2026 MTerminal Android. Todos os direitos reservados. Distribuído via Google Play Store.</p>
+                <p><a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Política de Privacidade</a></p>
             </div>
         </div>
     </footer>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
 </body>
 </html>
